@@ -1,0 +1,50 @@
+[
+	{
+		"Name": "WindowCreateWatcher",
+		"WatcherItems": [
+			{
+				"Name" : "Notepad",
+				"ProcessName" : "notepad++",
+				"MsgToSend": null,
+				"WindowClassName": "#32770",
+				"WindowTitles": [
+					"Save As",
+					"Find"
+				]
+			},
+			{
+				"Name" : "JobSearchTable",
+				"ProcessName" : "JobSearchTable",
+				"MsgToSend": "*.pdf",
+				"WindowClassName": "#32770",
+				"WindowTitles": [
+					"Open"
+				]
+			},
+			{
+				"Name" : "Chrome",
+				"ProcessName" : "chrome",
+				"MsgToSend": "*.pdf",
+				"WindowClassName": "#32770",
+				"WindowTitles": [
+					"Open",
+					"Save"
+				]
+			}
+		]
+	},
+	{
+		"Name": "WindowClosedWatcher111",
+		"WatcherItems": [
+			{
+				"Name" : "Notepad",
+				"ProcessName" : "notepad++",
+				"WindowClassName": "Notepad++",
+				"WindowTitles": [
+					"Open",
+					"Save"
+				]
+			}
+		]
+	}
+]
