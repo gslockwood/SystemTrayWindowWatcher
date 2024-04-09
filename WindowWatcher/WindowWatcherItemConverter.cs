@@ -1,11 +1,10 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using WindowWatcher;
 
-namespace SystemTrayWindowWatcher
+namespace WindowWatcher
 {
-    internal class WindowWatcherItemConverter : JsonConverter<IWindowWatcherItem>
+    public class WindowWatcherItemConverter : JsonConverter<IWindowWatcherItem>
     {
         public override bool CanRead => true;
         public override bool CanWrite => false;
@@ -18,7 +17,7 @@ namespace SystemTrayWindowWatcher
             IWindowWatcherItem windowWatcherItem = null;
             if( jObject["MsgToSend"] != null )
             {
-                windowWatcherItem = (WindowWatcher.WindowCreateWatcher.WindowCreateWatcherItem)jObject.ToObject<WindowWatcher.WindowCreateWatcher.WindowCreateWatcherItem>();
+                windowWatcherItem = (WindowCreateWatcher.WindowCreateWatcherItem)jObject.ToObject<WindowCreateWatcher.WindowCreateWatcherItem>();
             }
             else
             {

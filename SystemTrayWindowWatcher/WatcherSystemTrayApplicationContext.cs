@@ -57,7 +57,8 @@ namespace SystemTrayWindowWatcher
                 var settings = JsonConvert.DeserializeObject<List<WindowWatcher.WindowWatcher>>( json, new WindowWatcherItemConverter() );
                 IWindowWatcherItem theone = settings[0].WatcherItems[1];
 
-                IWindowWatcher windowCreateWatcher = new WindowCreateWatcher();
+                IWindowWatcher windowCreateWatcherMouse = new WindowCreateWatcherMouse();//WindowCreateWatcher
+                IWindowWatcher windowCreateWatcher = new WindowCreateWatcher();//WindowCreateWatcher
                 IWindowWatcher windowClosedWatcher = new WindowClosedWatcher();
 
                 foreach( var setting in settings )
@@ -70,6 +71,14 @@ namespace SystemTrayWindowWatcher
                             windowCreateWatcher.AddWatcher( item );
                         }
                     }
+                    else if( setting.Name.Equals( "WindowCreateWatcherMouse" ) )
+                    {
+                        foreach( WindowCreateWatcherItem watcherItem in setting.WatcherItems )
+                        {
+                            var item = new WindowCreateWatcherItem( watcherItem.Name, watcherItem.WindowClassName, watcherItem.WindowTitles, watcherItem.MsgToSend, watcherItem.ProcessName );
+                            windowCreateWatcherMouse.AddWatcher( item );
+                        }
+                    }
                     else if( setting.Name.Equals( "WindowClosedWatcher" ) )
                     {
                         foreach( var watcherItem in setting.WatcherItems )
@@ -80,6 +89,7 @@ namespace SystemTrayWindowWatcher
                 }
 
                 windowWatchers.Add( windowCreateWatcher );
+                windowWatchers.Add( windowCreateWatcherMouse );
                 windowWatchers.Add( windowClosedWatcher );
 
             }

@@ -19,7 +19,7 @@ namespace WindowWatcher
         public static uint SW_MINIMIZE = 0x0006;
 
 
-
+        //[DllImport( "user32.dll" )] public static extern bool GetCursorPos( out LPPOINT lpPoint );
         [DllImport( "user32.dll" )] public static extern bool SetForegroundWindow( IntPtr hWnd );
         [DllImport( "user32.dll" )] public static extern IntPtr GetForegroundWindow();
         [DllImport( "user32.dll", EntryPoint = "SetWindowPos" )] public static extern IntPtr SetWindowPos( IntPtr hWnd, int hWndInsertAfter, int x, int Y, uint cx, uint cy, uint wFlags );

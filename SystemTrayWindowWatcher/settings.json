@@ -3,18 +3,8 @@
 		"Name": "WindowCreateWatcher",
 		"WatcherItems": [
 			{
-				"Name" : "Notepad",
-				"ProcessName" : "notepad++",
-				"MsgToSend": null,
-				"WindowClassName": "#32770",
-				"WindowTitles": [
-					"Save As",
-					"Find"
-				]
-			},
-			{
-				"Name" : "JobSearchTable",
-				"ProcessName" : "JobSearchTable",
+				"Name": "JobSearchTable",
+				"ProcessName": "JobSearchTable",
 				"MsgToSend": "*.pdf",
 				"WindowClassName": "#32770",
 				"WindowTitles": [
@@ -22,8 +12,8 @@
 				]
 			},
 			{
-				"Name" : "Chrome",
-				"ProcessName" : "chrome",
+				"Name": "Chrome",
+				"ProcessName": "chrome",
 				"MsgToSend": "*.pdf",
 				"WindowClassName": "#32770",
 				"WindowTitles": [
@@ -34,11 +24,26 @@
 		]
 	},
 	{
+		"Name": "WindowCreateWatcherMouse",
+		"WatcherItems": [
+			{
+				"Name": "Notepad",
+				"ProcessName": "notepad++",
+				"MsgToSend": null,
+				"WindowClassName": "#32770",
+				"WindowTitles": [
+					"Save As",
+					"Find"
+				]
+			}
+		]
+	},
+	{
 		"Name": "WindowClosedWatcher111",
 		"WatcherItems": [
 			{
-				"Name" : "Notepad",
-				"ProcessName" : "notepad++",
+				"Name": "Notepad",
+				"ProcessName": "notepad++",
 				"WindowClassName": "Notepad++",
 				"WindowTitles": [
 					"Open",
