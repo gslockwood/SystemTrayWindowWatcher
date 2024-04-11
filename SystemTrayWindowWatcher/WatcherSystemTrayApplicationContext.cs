@@ -14,17 +14,31 @@ namespace SystemTrayWindowWatcher
     {
         private readonly MenuItem StartMenuItem;
         private readonly MenuItem StopMenuItem;
+        string filePath = string.Empty;
 
-        IList<IWindowWatcher> windowWatchers = new List<WindowWatcher.IWindowWatcher>();
+        IList<IWindowWatcher> windowWatchers = null;
 
         public WatcherSystemTrayApplicationContext() : base()
         {
             StartMenuItem = new MenuItem( "Start", new EventHandler( Start ) );
+            StartMenuItem = new MenuItem( "Restart", new EventHandler( Restart ) );
             StopMenuItem = new MenuItem( "Stop", new EventHandler( Stop ) );
             notifyIcon.ContextMenu = new ContextMenu( new MenuItem[] { StartMenuItem, StopMenuItem, exitMenuItem } );
             notifyIcon.Text = "Dialog watcher";
             notifyIcon.Icon = SystemTrayWindowWatcher.Properties.Resources.dialog_box_balloon;
             //
+
+            string? greenFlashSoftware = Environment.GetEnvironmentVariable( "GreenFlashSoftware" );
+            if( greenFlashSoftware == null )
+            {
+                MessageBox.Show( string.Format( "GreenFlashSoftware\\PositionFileDialog doesn't exist. Using current directory" ) );
+                filePath = System.IO.Directory.GetCurrentDirectory();
+            }
+            else
+                filePath = string.Format( @"{0}\PositionFileDialog", greenFlashSoftware );
+
+            filePath = string.Format( @"{0}\settings.json", filePath );
+
 
             //SetupWatchers();
             SetupWatchersBySettingsFile();
@@ -37,25 +51,12 @@ namespace SystemTrayWindowWatcher
         // this could be from a settings file
         private void SetupWatchersBySettingsFile()
         {
-            string filePath = string.Empty;
-            string? greenFlashSoftware = Environment.GetEnvironmentVariable( "GreenFlashSoftware" );
-            if( greenFlashSoftware == null )
-            {
-                MessageBox.Show( string.Format( "GreenFlashSoftware\\PositionFileDialog doesn't exist. Using current directory" ) );
-                filePath = System.IO.Directory.GetCurrentDirectory();
-            }
-            else
-                filePath = string.Format( @"{0}\PositionFileDialog", greenFlashSoftware );
-
-
+            windowWatchers = new List<WindowWatcher.IWindowWatcher>();
             try
             {
-                filePath = string.Format( @"{0}\settings.json", filePath );
-
                 string json = System.IO.File.ReadAllText( filePath );
-                //var settings0 = JsonConvert.DeserializeObject<List<WindowWatcher.WindowWatcher>>( json );
                 var settings = JsonConvert.DeserializeObject<List<WindowWatcher.WindowWatcher>>( json, new WindowWatcherItemConverter() );
-                IWindowWatcherItem theone = settings[0].WatcherItems[1];
+                //IWindowWatcherItem theone = settings[0].WatcherItems[1];
 
                 IWindowWatcher windowCreateWatcherMouse = new WindowCreateWatcherMouse();//WindowCreateWatcher
                 IWindowWatcher windowCreateWatcher = new WindowCreateWatcher();//WindowCreateWatcher
@@ -154,6 +155,17 @@ if( false )
             MessageBox.Show( "WatcherSystemTrayApplication for positioning certain windows to a more productive screen location" );
         }
 
+        void Restart( object sender, EventArgs e )
+        {
+            ConsoleEx.Log( GetType().Name + "/" + MethodBase.GetCurrentMethod().Name );
+
+            Stop( this, null );
+
+            SetupWatchersBySettingsFile();
+
+            Start( this, null );
+            //
+        }
         void Start( object sender, EventArgs e )
         {
             ConsoleEx.Log( GetType().Name + "/" + MethodBase.GetCurrentMethod().Name );
