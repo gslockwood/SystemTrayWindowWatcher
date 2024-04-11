@@ -13,17 +13,18 @@ namespace SystemTrayWindowWatcher
     public partial class WatcherSystemTrayApplicationContext : BasicSystemTrayApplicationContext
     {
         private readonly MenuItem StartMenuItem;
+        private readonly MenuItem RestartMenuItem;
         private readonly MenuItem StopMenuItem;
-        string filePath = string.Empty;
+        private readonly string filePath = string.Empty;
 
         IList<IWindowWatcher> windowWatchers = null;
 
         public WatcherSystemTrayApplicationContext() : base()
         {
             StartMenuItem = new MenuItem( "Start", new EventHandler( Start ) );
-            StartMenuItem = new MenuItem( "Restart", new EventHandler( Restart ) );
+            RestartMenuItem = new MenuItem( "Restart", new EventHandler( Restart ) );
             StopMenuItem = new MenuItem( "Stop", new EventHandler( Stop ) );
-            notifyIcon.ContextMenu = new ContextMenu( new MenuItem[] { StartMenuItem, StopMenuItem, exitMenuItem } );
+            notifyIcon.ContextMenu = new ContextMenu( new MenuItem[] { StartMenuItem, RestartMenuItem, StopMenuItem, exitMenuItem } );
             notifyIcon.Text = "Dialog watcher";
             notifyIcon.Icon = SystemTrayWindowWatcher.Properties.Resources.dialog_box_balloon;
             //
